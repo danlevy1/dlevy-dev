@@ -6,7 +6,7 @@ interface ProjectCardProps {
 }
 
 /** Rendered to static HTML at build time; ships no JavaScript. */
-export default function ProjectCard({ project }: ProjectCardProps) {
+export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { title, summary, tech, repo, url } = project;
 
   return (
@@ -47,4 +47,4 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       )}
     </article>
   );
-}
+};

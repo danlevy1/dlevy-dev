@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 
 /** Rendered to static HTML at build time; ships no JavaScript. */
-export default function Footer() {
+export const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
@@ -26,4 +26,4 @@ export default function Footer() {
       </span>
     </footer>
   );
-}
+};

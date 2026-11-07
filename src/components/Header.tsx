@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 /** Rendered to static HTML at build time; ships no JavaScript on its own. */
-export default function Header({ currentPath, children }: HeaderProps) {
+export const Header = ({ currentPath, children }: HeaderProps) => {
   const current = currentPath.replace(/\/$/, '') || '/';
 
   return (
@@ -61,4 +61,4 @@ export default function Header({ currentPath, children }: HeaderProps) {
       </nav>
     </header>
   );
-}
+};
