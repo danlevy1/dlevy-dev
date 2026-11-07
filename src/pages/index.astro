@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import { css } from 'styled-system/css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ProjectCard } from '../components/ProjectCard';
+
+const featured = (await getCollection('projects', ({ data }) => data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout>
+  <section>
+    <p class={css({ fontFamily: 'mono', fontSize: 'sm', color: 'accent' })}>Hi, I'm</p>
+    <h1
+      class={css({
+        fontSize: { base: '4xl', md: '5xl' },
+        fontWeight: 'bold',
+        letterSpacing: '-0.03em',
+        lineHeight: '1.1',
+        mt: '2',
+      })}
+    >
+      Dan Levy
+    </h1>
+    <p class={css({ fontSize: { base: 'lg', md: 'xl' }, color: 'muted', mt: '4', maxW: '2xl' })}>
+      Software Engineer. Replace this line with a one-sentence pitch: what you build and what you care about.
+    </p>
+  </section>
+
+  <section class={css({ mt: '16' })}>
+    <div class={css({ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' })}>
+      <h2 class={css({ fontSize: 'xl', fontWeight: 'semibold' })}>Featured projects</h2>
+      <a href="/projects" class={css({ fontSize: 'sm' })}>All projects →</a>
+    </div>
+    <div class={css({ display: 'grid', gap: '4', mt: '5' })}>
+      {featured.map((project) => <ProjectCard project={project.data} />)}
+    </div>
+  </section>
+</BaseLayout>

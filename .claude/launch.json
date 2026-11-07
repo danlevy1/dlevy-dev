@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "preview", "runtimeExecutable": "bash", "runtimeArgs": ["-lc", "source ~/.nvm/nvm.sh && pnpm preview --port 4321"], "port": 4321 }
+  ]
+}
