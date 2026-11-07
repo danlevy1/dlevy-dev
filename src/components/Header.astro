@@ -1,0 +1,50 @@
+---
+import { css } from 'styled-system/css';
+import ThemeToggle from './ThemeToggle';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+];
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header
+  class={css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    py: '5',
+    borderBottomWidth: '1px',
+    borderColor: 'border',
+  })}
+>
+  <a
+    href="/"
+    class={css({ fontWeight: 'semibold', color: 'fg', textDecoration: 'none', letterSpacing: '-0.01em' })}
+  >
+    dlevy.dev
+  </a>
+  <nav class={css({ display: 'flex', alignItems: 'center', gap: { base: '3', sm: '5' } })}>
+    {
+      links.map(({ href, label }) => (
+        <a
+          href={href}
+          aria-current={current === href ? 'page' : undefined}
+          class={css({
+            fontSize: 'sm',
+            color: 'muted',
+            textDecoration: 'none',
+            _hover: { color: 'fg' },
+            '&[aria-current=page]': { color: 'fg', fontWeight: 'medium' },
+          })}
+        >
+          {label}
+        </a>
+      ))
+    }
+    <ThemeToggle client:load />
+  </nav>
+</header>

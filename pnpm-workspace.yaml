@@ -1,0 +1,10 @@
+allowBuilds:
+  '@parcel/watcher': false
+
+# @pandacss/dev pulls in @emnapi/runtime 2.0 beta as a peer, and pnpm reuses it for
+# @astrojs/check's WASM loader, which needs the 1.x runtime that matches its @emnapi/core.
+# Without this, `astro check` crashes with "this.bridge.setLastError is not a function".
+packageExtensions:
+  '@astrojs/astro2tsx':
+    dependencies:
+      '@emnapi/runtime': ^1.11.3
