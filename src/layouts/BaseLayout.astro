@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
 import { css } from 'styled-system/css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import ThemeToggle from '../components/ThemeToggle';
 
 interface Props {
   title?: string;
@@ -50,7 +51,10 @@ const pageTitle = title ? `${title} · Dan Levy` : 'Dan Levy · Software Enginee
         flexDir: 'column',
       })}
     >
-      <Header />
+      <!-- Header and Footer render to static HTML; only ThemeToggle hydrates (client:load). -->
+      <Header currentPath={Astro.url.pathname}>
+        <ThemeToggle client:load />
+      </Header>
       <main class={css({ flex: '1', py: { base: '10', md: '16' } })}>
         <slot />
       </main>

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { css } from 'styled-system/css';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectCard from '../components/ProjectCard';
 
 const featured = (await getCollection('projects', ({ data }) => data.featured)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -34,7 +34,7 @@ const featured = (await getCollection('projects', ({ data }) => data.featured)).
       <a href="/projects" class={css({ fontSize: 'sm' })}>All projects →</a>
     </div>
     <div class={css({ display: 'grid', gap: '4', mt: '5' })}>
-      {featured.map((project) => <ProjectCard project={project} />)}
+      {featured.map((project) => <ProjectCard project={project.data} />)}
     </div>
   </section>
 </BaseLayout>
