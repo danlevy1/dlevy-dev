@@ -30,6 +30,13 @@ export default defineConfig({
 
   theme: {
     extend: {
+      keyframes: {
+        // Soft cursor blink for the logo dot: holds briefly at each end, fades between.
+        cursorBlink: {
+          '0%, 15%, 100%': { opacity: '1' },
+          '50%, 65%': { opacity: '0' },
+        },
+      },
       tokens: {
         fonts: {
           body: { value: 'Inter, ui-sans-serif, system-ui, -apple-system, sans-serif' },
@@ -44,6 +51,13 @@ export default defineConfig({
           fg: { value: { base: '{colors.zinc.900}', _dark: '{colors.zinc.100}' } },
           muted: { value: { base: '{colors.zinc.600}', _dark: '{colors.zinc.400}' } },
           accent: { value: { base: '{colors.indigo.600}', _dark: '{colors.indigo.400}' } },
+          // Logo: deeper tones on light backgrounds, the original brighter ones on dark.
+          logo: {
+            dot: { value: { base: '{colors.sky.500}', _dark: '{colors.sky.400}' } },
+            slash: { value: { base: '{colors.slate.500}', _dark: '{colors.slate.400}' } },
+            from: { value: { base: '{colors.sky.500}', _dark: '{colors.sky.400}' } },
+            to: { value: { base: '{colors.indigo.600}', _dark: '{colors.indigo.500}' } },
+          },
         },
       },
     },
