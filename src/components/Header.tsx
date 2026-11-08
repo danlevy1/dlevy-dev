@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Logo } from './Logo';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -29,16 +30,8 @@ export const Header = ({ currentPath, children }: HeaderProps) => {
         borderColor: 'border',
       })}
     >
-      <a
-        href="/"
-        className={css({
-          fontWeight: 'semibold',
-          color: 'fg',
-          textDecoration: 'none',
-          letterSpacing: '-0.01em',
-        })}
-      >
-        dlevy.dev
+      <a href="/" aria-label="dlevy.dev home" className={css({ display: 'inline-flex', rounded: 'sm' })}>
+        <Logo />
       </a>
       <nav className={css({ display: 'flex', alignItems: 'center', gap: { base: '3', sm: '5' } })}>
         {links.map(({ href, label }) => (
