@@ -3,19 +3,53 @@ import { css } from 'styled-system/css';
 
 type Theme = 'light' | 'dark';
 
-/** React island: switches `data-theme` on <html> and remembers the choice. */
+const STORAGE_KEY = 'theme';
+const darkQuery = () => matchMedia('(prefers-color-scheme: dark)');
+const osTheme = (): Theme => (darkQuery().matches ? 'dark' : 'light');
+
+const readStored = (): Theme | null => {
+  try {
+    const value = localStorage.getItem(STORAGE_KEY);
+    return value === 'light' || value === 'dark' ? value : null;
+  } catch {
+    return null;
+  }
+};
+
+const applyTheme = (theme: Theme) => {
+  document.documentElement.dataset.theme = theme;
+};
+
+/**
+ * React island: switches `data-theme` on <html>.
+ *
+ * Follows the OS light/dark preference (live, including changes while the page
+ * is open) until the visitor picks the opposite theme. Picking the theme that
+ * matches the OS again clears the override, so the site goes back to following it.
+ */
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme | null>(null);
 
   useEffect(() => {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
+    const query = darkQuery();
+    const onOsChange = () => {
+      if (readStored() !== null) return; // Visitor's explicit choice wins.
+      const next = osTheme();
+      applyTheme(next);
+      setTheme(next);
+    };
+    query.addEventListener('change', onOsChange);
+    return () => query.removeEventListener('change', onOsChange);
   }, []);
 
   const toggle = () => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
+    applyTheme(next);
     try {
-      localStorage.setItem('theme', next);
+      if (next === osTheme()) localStorage.removeItem(STORAGE_KEY);
+      else localStorage.setItem(STORAGE_KEY, next);
     } catch {
       // Storage can be blocked (private mode); the toggle still works for this visit.
     }
