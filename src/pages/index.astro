@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.jpg';
 import { css } from 'styled-system/css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ProjectCard } from '../components/ProjectCard';
@@ -10,22 +12,64 @@ const featured = (await getCollection('projects', ({ data }) => data.featured)).
 ---
 
 <BaseLayout>
-  <section>
-    <p class={css({ fontFamily: 'mono', fontSize: 'sm', color: 'accent' })}>Hi, I'm</p>
-    <h1
+  <section
+    class={css({
+      display: 'flex',
+      flexDir: { base: 'column', sm: 'row' },
+      alignItems: { base: 'flex-start', sm: 'center' },
+      gap: { base: '6', sm: '8' },
+    })}
+  >
+    <Image
+      src={profile}
+      alt="Dan Levy"
+      width={160}
+      height={160}
+      densities={[1, 2, 3]}
+      loading="eager"
+      fetchpriority="high"
       class={css({
-        fontSize: { base: '4xl', md: '5xl' },
-        fontWeight: 'bold',
-        letterSpacing: '-0.03em',
-        lineHeight: '1.1',
-        mt: '2',
+        flexShrink: '0',
+        w: { base: '28', md: '40' },
+        h: { base: '28', md: '40' },
+        rounded: 'full',
+        objectFit: 'cover',
+        bg: 'surface',
+        // 1px gap in the page background, then a 2px ring. The hover shadow keeps the ring
+        // layers so only the drop shadow fades in.
+        boxShadow:
+          '0 0 0 1px var(--colors-bg), 0 0 0 3px var(--colors-border), 0 18px 40px -8px rgb(0 0 0 / 0)',
+        transition: 'box-shadow 300ms ease-out, transform 300ms ease-out',
+        _hover: {
+          transform: 'scale(1.05)',
+          boxShadow:
+            '0 0 0 1px var(--colors-bg), 0 0 0 3px var(--colors-border), 0 18px 40px -8px rgb(0 0 0 / 0.45)',
+          _dark: {
+            boxShadow:
+              '0 0 0 1px var(--colors-bg), 0 0 0 3px var(--colors-border), 0 18px 40px -8px rgb(0 0 0 / 0.9)',
+          },
+        },
+        // No grow animation for reduced motion; the shadow still appears, just instantly.
+        _motionReduce: { transition: 'none', _hover: { transform: 'none' } },
       })}
-    >
-      Dan Levy
-    </h1>
-    <p class={css({ fontSize: { base: 'lg', md: 'xl' }, color: 'muted', mt: '4', maxW: '2xl' })}>
-      Software Engineer. Replace this line with a one-sentence pitch: what you build and what you care about.
-    </p>
+    />
+    <div>
+      <p class={css({ fontFamily: 'mono', fontSize: 'sm', color: 'accent' })}>Hi, I'm</p>
+      <h1
+        class={css({
+          fontSize: { base: '4xl', md: '5xl' },
+          fontWeight: 'bold',
+          letterSpacing: '-0.03em',
+          lineHeight: '1.1',
+          mt: '2',
+        })}
+      >
+        Dan Levy
+      </h1>
+      <p class={css({ fontSize: { base: 'lg', md: 'xl' }, color: 'muted', mt: '4', maxW: '2xl' })}>
+        Software Engineer. Replace this line with a one-sentence pitch: what you build and what you care about.
+      </p>
+    </div>
   </section>
 
   <section class={css({ mt: '16' })}>
