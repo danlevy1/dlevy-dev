@@ -8,7 +8,8 @@ export default defineConfig({
   exclude: [],
   outdir: 'styled-system',
 
-  // Dark mode follows `data-theme="dark"` on <html>, set by ThemeToggle.
+  // Dark mode follows `data-theme="dark"` on <html>: set from the OS preference
+  // before first paint (BaseLayout), then kept in sync / overridden by ThemeToggle.
   conditions: {
     extend: {
       dark: '[data-theme=dark] &',
@@ -17,6 +18,9 @@ export default defineConfig({
   },
 
   globalCss: {
+    // Native UI (scrollbars, form controls) matches the active theme.
+    html: { colorScheme: 'light' },
+    '[data-theme=dark]': { colorScheme: 'dark' },
     'html, body': {
       bg: 'bg',
       color: 'fg',
