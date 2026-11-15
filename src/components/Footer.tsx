@@ -20,9 +20,8 @@ export const Footer = () => {
     >
       <span>© {year} Dan Levy</span>
       <span className={css({ display: 'flex', gap: '4' })}>
-        {/* TODO: replace with your real profile URLs */}
-        <a href="https://github.com/">GitHub</a>
-        <a href="https://www.linkedin.com/">LinkedIn</a>
+        <a href="https://github.com/danlevy1">GitHub</a>
+        <a href="https://linkedin.com/in/danlevy124">LinkedIn</a>
       </span>
     </footer>
   );
