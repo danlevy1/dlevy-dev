@@ -1,6 +1,6 @@
 # Dan Levy (he/him)
 
-danlevy124@gmail.com | [linkedin.com/in/danlevy124](https://linkedin.com/in/danlevy124) | [dlevy.dev](https://www.dlevy.dev)
+danlevy124@gmail.com | [linkedin.com/in/danlevy124](https://linkedin.com/in/danlevy124) | [dlevy.dev](https://dlevy.dev)
 
 ## Work Experience
 

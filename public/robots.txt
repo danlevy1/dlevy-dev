@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# AI crawlers are welcome
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://dlevy.dev/sitemap.xml

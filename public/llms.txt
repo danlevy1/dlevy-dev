@@ -1,0 +1,15 @@
+# Dan Levy
+
+> Dan Levy is a Senior Software Engineer at HubSpot (Boston, MA) specializing in design systems, web accessibility (WCAG), and frontend infrastructure. Previously at Qualtrics. B.S. Computer Science, Florida Institute of Technology (2020).
+
+## Pages
+
+- [Home](https://dlevy.dev/): Summary, experience, and featured projects
+- [About / Resume](https://dlevy.dev/about): Full work history, skills, and education
+- [Projects](https://dlevy.dev/projects): Selected projects
+- [Resume PDF](https://dlevy.dev/Dan-Levy-Resume.pdf): Downloadable resume
+
+## Elsewhere
+
+- [GitHub](https://github.com/danlevy1)
+- [LinkedIn](https://linkedin.com/in/danlevy124)
