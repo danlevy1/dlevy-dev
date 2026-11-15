@@ -1,34 +1,128 @@
 ---
 import { css } from 'styled-system/css';
 import BaseLayout from '../layouts/BaseLayout.astro';
+// The resume lives in Markdown so it can be updated in one place; keep
+// public/Dan-Levy-Resume.pdf in sync when it changes.
+import { Content, getHeadings } from '../content/resume.md';
+
+const name = getHeadings().find((h) => h.depth === 1)?.text ?? 'Dan Levy';
+
+const buttonStyles = css.raw({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '2',
+  px: '3.5',
+  py: '2',
+  fontSize: 'sm',
+  fontWeight: 'medium',
+  color: 'fg',
+  bg: 'surface',
+  borderWidth: '1px',
+  borderColor: 'border',
+  rounded: 'md',
+  textDecoration: 'none',
+  transition: 'border-color 150ms ease-out, color 150ms ease-out',
+  _hover: { borderColor: 'accent', color: 'accent' },
+  _focusVisible: { outline: '2px solid', outlineColor: 'accent', outlineOffset: '2px' },
+  '& svg': { flexShrink: '0' },
+});
+
+const primaryStyles = css.raw({
+  color: 'bg',
+  bg: 'accent',
+  borderColor: 'accent',
+  _hover: { color: 'bg', opacity: '0.9' },
+});
+
+const button = css(buttonStyles);
+// Merged (not class-joined) so the accent fill reliably overrides the base surface.
+const primaryButton = css(buttonStyles, primaryStyles);
 
 const prose = css({
-  '& p': { mt: '4', color: 'fg' },
-  '& h2': { fontSize: 'xl', fontWeight: 'semibold', mt: '10' },
+  // The name and contact line are rendered above as a heading and link buttons.
+  '& h1, & h1 + p': { display: 'none' },
+  '& h2': {
+    fontSize: 'xl',
+    fontWeight: 'semibold',
+    mt: '12',
+    pb: '2',
+    borderBottomWidth: '1px',
+    borderColor: 'border',
+  },
+  '& h2:first-of-type': { mt: '0' },
+  '& h3': { fontSize: 'md', fontWeight: 'semibold', mt: '8' },
+  '& h2 + h3': { mt: '5' },
+  // Education entries read as plain text rather than job headings.
+  '& h2#education ~ h3': { fontWeight: 'normal' },
+  '& p': { color: 'fg' },
   '& ul': { mt: '3', pl: '5', listStyleType: 'disc' },
-  '& li': { mt: '1' },
+  '& li': { mt: '2', color: 'fg' },
+  '& li::marker': { color: 'muted' },
 });
 ---
 
-<BaseLayout title="About" description="About Dan Levy, Software Engineer.">
-  <h1 class={css({ fontSize: '3xl', fontWeight: 'bold', letterSpacing: '-0.02em' })}>About</h1>
-  <div class={prose}>
-    <p>
-      Placeholder bio. Write a short paragraph about who you are, what you work on, and what you're
-      looking for next.
-    </p>
-
-    <h2>Experience</h2>
-    <ul>
-      <li>Role, Company (Year–Present)</li>
-      <li>Role, Company (Year–Year)</li>
-    </ul>
-
-    <h2>Skills</h2>
-    <ul>
-      <li>Languages: TypeScript, …</li>
-      <li>Frontend: React, Astro, …</li>
-      <li>Backend &amp; infrastructure: …</li>
+<BaseLayout title="About" description="About Dan Levy, Software Engineer: experience, skills, and resume.">
+  <!-- Stacked on small screens; name left, buttons right-aligned on wider ones. -->
+  <div
+    class={css({
+      display: 'flex',
+      flexDir: { base: 'column', md: 'row' },
+      alignItems: { base: 'flex-start', md: 'center' },
+      justifyContent: 'space-between',
+      gap: { base: '5', md: '6' },
+      mb: '12',
+    })}
+  >
+    <h1
+      class={css({
+        fontSize: '3xl',
+        fontWeight: 'bold',
+        letterSpacing: '-0.02em',
+        lineHeight: '1.2',
+        flexShrink: '0',
+      })}
+    >
+      {name}
+    </h1>
+    <ul
+      class={css({
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: { base: 'flex-start', md: 'flex-end' },
+        gap: '3',
+      })}
+    >
+      <li>
+        <a href="/Dan-Levy-Resume.pdf" download class={primaryButton}>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12" />
+            <path d="m7 10 5 5 5-5" />
+            <path d="M5 21h14" />
+          </svg>
+          Download PDF
+        </a>
+      </li>
+      <li>
+        <a href="mailto:danlevy124@gmail.com" title="danlevy124@gmail.com" class={button}>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          Email
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/danlevy124" class={button}>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+          </svg>
+          LinkedIn
+        </a>
+      </li>
     </ul>
   </div>
+
+  <article class={prose}>
+    <Content />
+  </article>
 </BaseLayout>
