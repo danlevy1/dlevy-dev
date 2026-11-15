@@ -9,6 +9,30 @@ import { ProjectCard } from '../components/ProjectCard';
 const featured = (await getCollection('projects', ({ data }) => data.featured)).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+const experience = [
+  {
+    role: 'Senior II Software Engineer',
+    company: 'HubSpot',
+    dates: 'Oct 2025 – Present',
+    blurb:
+      'Building a grid-based page layout system, evaluating a next-generation component library on BaseUI + shadcn, and shipping AI context so every engineer’s LLM can build with the design system by default.',
+  },
+  {
+    role: 'Senior I Software Engineer',
+    company: 'HubSpot',
+    dates: 'Jun 2022 – Oct 2025',
+    blurb:
+      'Led the product-wide font migration, built the theming/token system for the brand refresh, and partnered on a new iconography system and visual regression testing.',
+  },
+  {
+    role: 'New-Grad Engineer',
+    company: 'Qualtrics',
+    dates: 'Jun 2020 – Jun 2022',
+    blurb:
+      'Built and maintained design system components and led the effort to reach WCAG 2.0 AA compliance across the system in 3 months.',
+  },
+];
 ---
 
 <BaseLayout>
@@ -67,9 +91,33 @@ const featured = (await getCollection('projects', ({ data }) => data.featured)).
         Dan Levy
       </h1>
       <p class={css({ fontSize: { base: 'lg', md: 'xl' }, color: 'muted', mt: '4', maxW: '2xl' })}>
-        Software Engineer. Replace this line with a one-sentence pitch: what you build and what you care about.
+        Senior Software Engineer at HubSpot, building design systems and frontend infrastructure with an
+        accessibility-first mindset.
       </p>
+      <p class={css({ color: 'muted', mt: '2', fontSize: 'sm' })}>Boston, MA</p>
     </div>
+  </section>
+
+  <section class={css({ mt: '12', maxW: '2xl' })}>
+    <p>
+      I'm a frontend engineer with deep experience in design systems and accessibility. I focus on the
+      highest-impact work, lead large projects from new systems to migrations, and love helping the people
+      around me level up through onboarding, mentoring, and hosting interns.
+    </p>
+  </section>
+
+  <section class={css({ mt: '16' })} aria-labelledby="experience">
+    <h2 id="experience" class={css({ fontSize: 'xl', fontWeight: 'semibold' })}>Experience</h2>
+    <ol class={css({ mt: '5', display: 'grid', gap: '5' })}>
+      {experience.map((e) => (
+        <li>
+          <p class={css({ fontWeight: 'semibold' })}>{e.role} · {e.company}</p>
+          <p class={css({ fontFamily: 'mono', fontSize: 'xs', color: 'muted' })}>{e.dates}</p>
+          <p class={css({ color: 'muted', mt: '1' })}>{e.blurb}</p>
+        </li>
+      ))}
+    </ol>
+    <p class={css({ mt: '4', fontSize: 'sm' })}><a href="/about">More about my work →</a></p>
   </section>
 
   <section class={css({ mt: '16' })}>
@@ -80,5 +128,14 @@ const featured = (await getCollection('projects', ({ data }) => data.featured)).
     <div class={css({ display: 'grid', gap: '4', mt: '5' })}>
       {featured.map((project) => <ProjectCard project={project.data} />)}
     </div>
+  </section>
+
+  <section class={css({ mt: '16' })} aria-labelledby="contact">
+    <h2 id="contact" class={css({ fontSize: 'xl', fontWeight: 'semibold' })}>Get in touch</h2>
+    <p class={css({ display: 'flex', flexWrap: 'wrap', gap: '4', mt: '2' })}>
+      <a href="mailto:danlevy124@gmail.com">danlevy124@gmail.com</a>
+      <a href="https://linkedin.com/in/danlevy124">LinkedIn</a>
+      <a href="https://github.com/danlevy1">GitHub</a>
+    </p>
   </section>
 </BaseLayout>

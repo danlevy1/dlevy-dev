@@ -57,7 +57,7 @@ const prose = css({
   '& p': { color: 'fg' },
   '& ul': { mt: '3', pl: '5', listStyleType: 'disc' },
   '& li': { mt: '2', color: 'fg' },
-  '& li::marker': { color: 'muted' },
+  '& li::marker': { color: 'accent' },
 });
 ---
 
@@ -80,6 +80,11 @@ const prose = css({
         letterSpacing: '-0.02em',
         lineHeight: '1.2',
         flexShrink: '0',
+        bgGradient: 'to-r',
+        gradientFrom: 'logo.from',
+        gradientTo: 'logo.to',
+        bgClip: 'text',
+        color: 'transparent',
       })}
     >
       {name}
@@ -120,6 +125,33 @@ const prose = css({
         </a>
       </li>
     </ul>
+  </div>
+
+  <div
+    class={css({
+      mb: '12',
+      p: '5',
+      rounded: 'lg',
+      bg: 'surface',
+      borderWidth: '1px',
+      borderColor: 'border',
+      borderLeftWidth: '4px',
+      borderLeftColor: 'accent',
+      display: 'grid',
+      gap: '4',
+    })}
+  >
+    <p>
+      I'm a frontend engineer with significant experience in the design system and accessibility space. I
+      bring a technical, creative, and business-oriented mindset to my work, focusing on the highest-impact
+      problems so I can deliver quality work quickly.
+    </p>
+    <p>
+      I've consistently taken lead roles on large projects, rallying teams, partners, and leadership to
+      deliver on schedule, whether that's new systems, migrations, or fixes and enhancements. Beyond the
+      code, I like leveling up the people around me: I've hosted interns, run onboarding for new teammates,
+      and pushed for industry best practices and an accessibility-first mindset.
+    </p>
   </div>
 
   <article class={prose}>
