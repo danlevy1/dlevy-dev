@@ -12,9 +12,43 @@ interface Props {
 
 const {
   title,
-  description = 'Dan Levy — Software Engineer. Projects, writing, and more.',
+  description = 'Dan Levy is a Senior Software Engineer at HubSpot in Boston, specializing in design systems, accessibility, and frontend infrastructure.',
 } = Astro.props;
-const pageTitle = title ? `${title} · Dan Levy` : 'Dan Levy · Software Engineer';
+const pageTitle = title ? `${title} · Dan Levy` : 'Dan Levy · Senior Software Engineer, Design Systems';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/apple-touch-icon.png', Astro.site).href;
+
+// Structured data: tells search engines and LLMs who this site is about.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://dlevy.dev/#person',
+      name: 'Dan Levy',
+      url: 'https://dlevy.dev/',
+      image: ogImage,
+      jobTitle: 'Senior Software Engineer',
+      description:
+        'Frontend engineer specializing in design systems, accessibility (WCAG), and frontend infrastructure.',
+      worksFor: { '@type': 'Organization', name: 'HubSpot' },
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'Florida Institute of Technology' },
+        { '@type': 'Organization', name: 'Qualtrics' },
+      ],
+      knowsAbout: ['Design systems', 'Web accessibility', 'WCAG', 'React', 'TypeScript', 'Frontend infrastructure'],
+      address: { '@type': 'PostalAddress', addressLocality: 'Boston', addressRegion: 'MA', addressCountry: 'US' },
+      sameAs: ['https://github.com/danlevy1', 'https://linkedin.com/in/danlevy124'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://dlevy.dev/#website',
+      url: 'https://dlevy.dev/',
+      name: 'Dan Levy',
+      publisher: { '@id': 'https://dlevy.dev/#person' },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -27,8 +61,22 @@ const pageTitle = title ? `${title} · Dan Levy` : 'Dan Levy · Software Enginee
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{pageTitle}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="me" href="https://github.com/danlevy1" />
+    <link rel="me" href="https://linkedin.com/in/danlevy124" />
+    <meta name="author" content="Dan Levy" />
+    <meta property="og:type" content={Astro.url.pathname === '/' ? 'profile' : 'website'} />
+    <meta property="og:site_name" content="Dan Levy" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Set the theme before first paint to avoid a light/dark flash. -->
     <script is:inline>
       (() => {
